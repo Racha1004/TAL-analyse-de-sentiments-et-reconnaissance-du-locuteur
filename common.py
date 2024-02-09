@@ -52,6 +52,7 @@ def remove_ponctuation(sentence):
     """Supprimer la ponctuation"""
     return re.sub(r'[^\w\s]', '', sentence)
 
+
 import nltk
 
 def tokenize_sentence(sentence):
@@ -60,7 +61,7 @@ def tokenize_sentence(sentence):
     return nltk.word_tokenize(sentence)
 
 from nltk.corpus import stopwords
-def remove_stopwords(sentence):
+def remove_stopwords():
     """Supprimer les stop words 
     On peut etre cette liste en faisant stop_words.append("Alasca")"""
     stopwords.words('french')
