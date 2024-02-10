@@ -6,6 +6,15 @@ import re
 import os.path
 
 
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+
 #-------------------FONCTIONS POUR LE CHARGEMENT DE DONNÉES------------------#
 # Données reconnaissance du locuteur (Chirac/Mitterrand)
 def load_pres(fname):
@@ -46,21 +55,19 @@ def load_movies(path2data): # 1 classe par répertoire
 
 
 #-------------------------FONCTIONS POUR LE PREPROCESSING--------------------#
-import re
 
 def remove_ponctuation(sentence):
     """Supprimer la ponctuation"""
     return re.sub(r'[^\w\s]', '', sentence)
 
 
-import nltk
-
 def tokenize_sentence(sentence):
     """Conversion en des listes de tokens
     download punkt et wordnet avec nltk.donwload"""
-    return nltk.word_tokenize(sentence)
+    return word_tokenize(sentence)
 
-from nltk.corpus import stopwords
+
+
 def remove_stopwords():
     """Supprimer les stop words 
     On peut etre cette liste en faisant stop_words.append("Alasca")"""
@@ -82,5 +89,13 @@ def lemmatization(sentence):
     tokens = tokenize_sentence(sentence)
     sentence_lemmatized = []
     for word in tokens:
-        sentence_lemmatized.append(lemmatizer.stem(word))
+        sentence_lemmatized.append(lemmatizer.lemmatize(word))
     return " ".join(sentence_lemmatized)
+
+
+
+
+
+
+
+print(tokenize_sentence("BOnjour le monde , merci"))
