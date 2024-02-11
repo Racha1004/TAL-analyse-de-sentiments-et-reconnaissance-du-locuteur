@@ -92,7 +92,14 @@ def lemmatization(sentence):
         sentence_lemmatized.append(lemmatizer.lemmatize(word))
     return " ".join(sentence_lemmatized)
 
+"""
+def first_line(text):
+    return re.split(r'[.!?]', text)[0]
 
+def last_line(text):
+    if text.endswith('\n'): text = text[:-2]
+    return re.split(r'[.!?]', text)[-1]
+"""
 
 
 
