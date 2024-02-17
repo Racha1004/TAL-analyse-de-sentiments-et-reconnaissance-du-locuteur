@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import codecs
 import re
 import os.path
+import string
 
 
 import nltk
@@ -13,6 +14,8 @@ nltk.download('wordnet')
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.stem.snowball import FrenchStemmer
+from nltk.stem import WordNetLemmatizer
 
 
 #-------------------FONCTIONS POUR LE CHARGEMENT DE DONNÉES------------------#
@@ -56,32 +59,32 @@ def load_movies(path2data): # 1 classe par répertoire
 
 #-------------------------FONCTIONS POUR LE PREPROCESSING--------------------#
 
-def remove_ponctuation(sentence):
-    """Supprimer la ponctuation"""
-    return re.sub(r'[^\w\s]', '', sentence)
+# def remove_ponctuation(sentence):
+#     """Supprimer la ponctuation"""
+#     return re.sub(r'[^\w\s]', '', sentence)
 
 
-def tokenize_sentence(sentence):
-    """Conversion en des listes de tokens
-    download punkt et wordnet avec nltk.donwload"""
-    return word_tokenize(sentence)
+# def tokenize_sentence(sentence):
+#     """Conversion en des listes de tokens
+#     download punkt et wordnet avec nltk.donwload"""
+#     return word_tokenize(sentence)
 
 
 
-def remove_stopwords():
-    """Supprimer les stop words 
-    On peut etre cette liste en faisant stop_words.append("Alasca")"""
-    stopwords.words('french')
+# def remove_stopwords():
+#     """Supprimer les stop words 
+#     On peut etre cette liste en faisant stop_words.append("Alasca")"""
+#     stopwords.words('french')
 
 
-from nltk.stem.snowball import FrenchStemmer
-def stemming(sentence):
-    fr_stemmer = FrenchStemmer()
-    tokens = tokenize_sentence(sentence)
-    sentence_stemmed = []
-    for word in tokens:
-        sentence_stemmed.append(fr_stemmer.stem(word))
-    return " ".join(sentence_stemmed)
+# from nltk.stem.snowball import FrenchStemmer
+# def stemming(sentence):
+#     fr_stemmer = FrenchStemmer()
+#     tokens = tokenize_sentence(sentence)
+#     sentence_stemmed = []
+#     for word in tokens:
+#         sentence_stemmed.append(fr_stemmer.stem(word))
+#     return " ".join(sentence_stemmed)
 
 from nltk.stem import WordNetLemmatizer
 def lemmatization(sentence):
@@ -92,17 +95,61 @@ def lemmatization(sentence):
         sentence_lemmatized.append(lemmatizer.lemmatize(word))
     return " ".join(sentence_lemmatized)
 
-"""
-def first_line(text):
-    return re.split(r'[.!?]', text)[0]
 
-def last_line(text):
-    if text.endswith('\n'): text = text[:-2]
+
+def suppression_ponctuation(text):
+    punc = string.punctuation  
+    punc += '\n\r\t'
+    text = text.translate(str.maketrans(punc, ' ' * len(punc)))  
+    text = re.sub('( )+', ' ', text)
+
+    return text
+
+
+def majuscules_en_marqueurs(phrase):
+    marqueur = "**"
+    motif = r'\b[A-Z]+\b'
+    
+    def remplacer_majuscules(match):
+        return marqueur + match.group(0) + marqueur
+    
+    resultat = re.sub(motif, remplacer_majuscules, phrase)
+    return resultat
+
+
+def suppression_chiffres(text):
+    return re.sub('[0-9]+', '', text)
+
+def suppression_balises_html(text):
+    motif = re.compile(r'<[^>]+>')
+    return re.sub(motif, '', text)
+
+def tokenize_sentence(sentence):
+    """Conversion en des listes de tokens"""
+    return word_tokenize(sentence)
+
+
+def stemming(sentence):
+    fr_stemmer = FrenchStemmer()
+    tokens = tokenize_sentence(sentence)
+    sentence_stemmed = []
+    for word in tokens:
+        sentence_stemmed.append(fr_stemmer.stem(word))
+    return " ".join(sentence_stemmed)
+
+def extraire_debut(text):
+    return re.split(r'[.?!]',text)[0]
+
+
+def extraire_fin(text):
+    if text.endswith('\n'): 
+        text = text[:-2]
     return re.split(r'[.!?]', text)[-1]
-"""
 
 
+import spacy
 
-
-
-print(tokenize_sentence("BOnjour le monde , merci"))
+def remove_proper_nouns(text):
+    nlp = spacy.load("fr_core_news_sm")
+    doc = nlp(text)
+    return ' '.join([token.text for token in doc if token.pos_ != "PROPN"])
