@@ -1,0 +1,7 @@
+1- Sans prétratement
+    * Temps d'xecution :
+        Régression > SVM > NB
+
+    * Performance :
+        Regression = SVM > NB
+
