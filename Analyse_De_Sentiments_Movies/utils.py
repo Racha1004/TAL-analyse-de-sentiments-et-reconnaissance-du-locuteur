@@ -32,6 +32,9 @@ def load_movies(path2data): # 1 classe par répertoire
         
     return alltxts,labs
 
+def load_movies_test(fname):
+    return open(fname).readlines()
+
 #-------------------------FONCTIONS POUR LE PREPROCESSING--------------------#
 def remove_ponctuation(sentence):
     punc = string.punctuation  
