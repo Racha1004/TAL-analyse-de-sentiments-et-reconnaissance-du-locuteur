@@ -8,9 +8,9 @@ import string
 
 
 import nltk
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('wordnet')
+# nltk.download('stopwords')
+# nltk.download('punkt')
+# nltk.download('wordnet')
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -147,9 +147,9 @@ def extraire_fin(text):
     return re.split(r'[.!?]', text)[-1]
 
 
-import spacy
+# import spacy
 
-def remove_proper_nouns(text):
-    nlp = spacy.load("fr_core_news_sm")
-    doc = nlp(text)
-    return ' '.join([token.text for token in doc if token.pos_ != "PROPN"])
+# def remove_proper_nouns(text):
+#     nlp = spacy.load("fr_core_news_sm")
+#     doc = nlp(text)
+#     return ' '.join([token.text for token in doc if token.pos_ != "PROPN"])
