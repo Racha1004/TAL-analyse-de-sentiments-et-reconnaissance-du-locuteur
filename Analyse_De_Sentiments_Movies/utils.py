@@ -43,6 +43,10 @@ def remove_ponctuation(sentence):
 def remove_numbers(sentence):
     return re.sub('[0-9]+', '', sentence)
 
+def suppression_balises_html(text):
+    motif = re.compile(r'<[^>]+>')
+    return re.sub(motif, '', text)
+
 def remove_names_En(sentence):
     # Tokenisation des mots dans la phrase
     tokens = nltk.word_tokenize(sentence)
