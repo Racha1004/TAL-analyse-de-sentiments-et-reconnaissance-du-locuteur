@@ -32,16 +32,16 @@ tfidf_params = {
     'min_df': 2,
     # 'tfidf__ngram_range': [(1, 1), (1, 2), (1, 3), (2, 2), (2, 3) , (3,3)],
     'ngram_range': (1, 2),
-    'binary': False,
+    'binary': True,
     'lowercase': False,
     # 'tfidf__use_idf': [False, True],
     # 'tfidf__sublinear_tf': [False, True],
-    'max_features': 40000,
+    'max_features': 100000,
 }
 
 reg_params = {
     # 'reg__C': [0.1, 1, 10, 100],
-    'C': 1000,
+    'C': 100,
     'max_iter': 10000,
     'tol': 1e-4,
     'penalty': 'l2' ,
@@ -68,4 +68,4 @@ probabilites_metterand_smoothed = gaussian_filter(probabilites_metterand,sigma=0
 print(probabilites)
 print(probabilites.shape)
 print(probabilites_metterand_smoothed)
-np.savetxt("predictions/pred_presidents_6.txt",probabilites_metterand_smoothed,fmt='%s')
+np.savetxt("predictions/pred_presidents_7.txt",probabilites_metterand_smoothed,fmt='%s')

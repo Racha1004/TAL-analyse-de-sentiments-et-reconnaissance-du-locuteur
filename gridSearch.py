@@ -52,14 +52,14 @@ parameters = {
     'tfidf__binary': [True],
     # 'tfidf__use_idf': [False, True],
     # 'tfidf__sublinear_tf': [False, True],
-    'tfidf__max_features': [40000],
+    'tfidf__max_features': [40000,100000],
     'reg__class_weight': ['balanced'],  
-    'reg__C': [100000],
+    # 'reg__C': [100000],
     # 'reg__C': [100],
     'reg__max_iter': [10000],
     'reg__tol': [1e-4],
-    'reg__penalty': [ 'l2' ]
-
+    'reg__penalty': [ 'l2' ],
+    'reg__C': [ 1]
 }
 
 scoring = {
