@@ -56,7 +56,20 @@ def load_movies(path2data): # 1 classe par répertoire
     return alltxts,labs
 
 
-
+#-----------------------Fichiers test : -------------------------------------#
+# Données reconnaissance du locuteur (Chirac/Mitterrand)
+def load_pres_test(fname):
+    alltxts = []
+    s=codecs.open(fname, 'r','utf-8') # pour régler le codage
+    while True:
+        txt = s.readline()
+        if(len(txt))<5:
+            break
+        print("tx1t",txt)
+        txt = re.sub(r"<[0-9]*:[0-9]*>(.*)","\\1",txt)
+        print("txt2",txt)
+        alltxts.append(txt)
+    return alltxts
 #-------------------------FONCTIONS POUR LE PREPROCESSING--------------------#
 
 # def remove_ponctuation(sentence):
