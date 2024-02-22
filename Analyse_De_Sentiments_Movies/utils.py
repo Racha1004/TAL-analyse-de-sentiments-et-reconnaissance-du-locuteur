@@ -89,3 +89,13 @@ def extraire_fin(text):
     if text.endswith('\n'): 
         text = text[:-1]
     return re.split(r'[.!?]', text)[-2]
+
+def majuscules_en_marqueurs(phrase):
+    marqueur = "**"
+    motif = r'\b[A-Z]+\b'
+    
+    def remplacer_majuscules(match):
+        return marqueur + match.group(0) + marqueur
+    
+    resultat = re.sub(motif, remplacer_majuscules, phrase)
+    return resultat
