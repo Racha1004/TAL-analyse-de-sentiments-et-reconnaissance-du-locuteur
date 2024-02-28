@@ -28,11 +28,11 @@ def load_pres(fname):
         txt = s.readline()
         if(len(txt))<5:
             break
-        print("tx1t",txt)
+        # print("tx1t",txt)
         lab = re.sub(r"<[0-9]*:[0-9]*:(.)>.*","\\1",txt)
-        print("lab",lab)
+        # print("lab",lab)
         txt = re.sub(r"<[0-9]*:[0-9]*:.>(.*)","\\1",txt)
-        print("txt2",txt)
+        # print("txt2",txt)
         if lab.count('M') >0:
             alllabs.append(-1)
         else: 
