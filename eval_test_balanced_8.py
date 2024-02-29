@@ -32,11 +32,8 @@ alltxts_test= cmn.load_pres_test(fname_test)
 tfidf_params = {
     'max_df':  0.5,
     'min_df': 2,
-    # 'tfidf__ngram_range': [(1, 1), (1, 2), (1, 3), (2, 2), (2, 3) , (3,3)],
     'ngram_range': (1, 2),
     'binary': True,
-    # 'tfidf__use_idf': [False, True],
-    # 'tfidf__sublinear_tf': [False, True],
     'max_features': 100000,
 }
 
@@ -51,9 +48,6 @@ reg_params = {
 
 preprocessors = lambda x: ((cmn.suppression_chiffres(cmn.majuscules_en_marqueurs(cmn.suppression_ponctuation(cmn.suppression_balises_html((x)))))))
 
-"""{'reg__C': 100, 'reg__max_iter': 100, 'reg__penalty': 'l2', 'reg__tol': 0.0001, 'tfidf__binary': False, 'tfidf__lowercase': False, 'tfidf__max_df': 0.5, 'tfidf__max_features': 100000, 'tfidf__min_df': 2, 'tfidf__ngram_range': (1, 2)}"""
-"""{'reg__C': 100, 'reg__max_iter': 100, 'reg__penalty': 'l2', 'reg__tol': 0.0001, 'tfidf__binary': False, 'tfidf__lowercase': False, 'tfidf__max_df': 0.5, 'tfidf__max_features': 100000, 'tfidf__min_df': 2, 'tfidf__ngram_range': (1, 2)}"""
-# vectorizer_tf_idf_bigram = TfidfVectorizer(preprocessor=lambda x: (((cmn.majuscules_en_marqueurs((cmn.suppression_balises_html((x))))))),ngram_range=(1,2),binary=True,max_df=0.2,max_features= 200000)
 vectorizer_tf_idf_bigram = TfidfVectorizer(preprocessor=preprocessors,**tfidf_params)
 
 X_train = vectorizer_tf_idf_bigram.fit_transform(alltxts)
