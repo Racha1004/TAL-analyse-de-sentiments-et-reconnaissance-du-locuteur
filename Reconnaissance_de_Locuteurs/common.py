@@ -16,6 +16,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem.snowball import FrenchStemmer
 from nltk.stem import WordNetLemmatizer
+from nltk.stem import WordNetLemmatizer
 
 
 #-------------------FONCTIONS POUR LE CHARGEMENT DE DONNÉES------------------#
@@ -70,36 +71,9 @@ def load_pres_test(fname):
         print("txt2",txt)
         alltxts.append(txt)
     return alltxts
-#-------------------------FONCTIONS POUR LE PREPROCESSING--------------------#
-
-# def remove_ponctuation(sentence):
-#     """Supprimer la ponctuation"""
-#     return re.sub(r'[^\w\s]', '', sentence)
-
-
-# def tokenize_sentence(sentence):
-#     """Conversion en des listes de tokens
-#     download punkt et wordnet avec nltk.donwload"""
-#     return word_tokenize(sentence)
 
 
 
-# def remove_stopwords():
-#     """Supprimer les stop words 
-#     On peut etre cette liste en faisant stop_words.append("Alasca")"""
-#     stopwords.words('french')
-
-
-# from nltk.stem.snowball import FrenchStemmer
-# def stemming(sentence):
-#     fr_stemmer = FrenchStemmer()
-#     tokens = tokenize_sentence(sentence)
-#     sentence_stemmed = []
-#     for word in tokens:
-#         sentence_stemmed.append(fr_stemmer.stem(word))
-#     return " ".join(sentence_stemmed)
-
-from nltk.stem import WordNetLemmatizer
 def lemmatization(sentence):
     lemmatizer = WordNetLemmatizer()
     tokens = tokenize_sentence(sentence)
@@ -159,10 +133,12 @@ def extraire_fin(text):
         text = text[:-2]
     return re.split(r'[.!?]', text)[-1]
 
+def remove_stopwords(text):
+    """Supprimer les stop words """
+    stop_words = set(stopwords.words('french'))
+    filtered_text = ' '.join([word for word in text.split() if word.lower() not in stop_words])
+    return filtered_text
 
-# import spacy
+def lowercase(text):
+    return text.lower()
 
-# def remove_proper_nouns(text):
-#     nlp = spacy.load("fr_core_news_sm")
-#     doc = nlp(text)
-#     return ' '.join([token.text for token in doc if token.pos_ != "PROPN"])
